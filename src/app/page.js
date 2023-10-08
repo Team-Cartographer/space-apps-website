@@ -4,15 +4,13 @@ import { useState } from "react";
 
 import dynamic from "next/dynamic";
 const Globe = dynamic(
-  () => import("../components/Globe").then((mod) => mod.default),
+  () => import("@/components/Globe").then((mod) => mod.default),
   {
     ssr: false,
   }
 );
-import Image from "next/image";
 
-import PauseSVG from "../../public/pause.svg";
-import PlaySVG from "../../public/play.svg";
+import PauseButton from "@/components/PauseButton";
 
 const Main = () => {
   const [isHover, setIsHover] = useState(false);
@@ -20,35 +18,12 @@ const Main = () => {
 
   return (
     <>
-      <Image
-        src={isPlaying ? PauseSVG : PlaySVG}
-        width={64}
-        height={64}
-        onMouseEnter={() => {
-          setIsHover(true);
-        }}
-        onMouseLeave={() => {
-          setIsHover(false);
-        }}
-        onClick={() => {
-          setIsPlaying(!isPlaying);
-        }}
-        style={{
-          zIndex: "10",
-          color: "white",
-          position: "absolute",
-          cursor: isHover ? "pointer" : "default",
-          marginLeft: "10px",
-          marginTop: "10px",
-        }}
+      <PauseButton
+        isPlaying={isPlaying}
+        isHover={isHover}
+        setIsPlaying={setIsPlaying}
+        setIsHover={setIsHover}
       />
-      <div
-        style={{
-          position: "absolute",
-          color: "white",
-          zIndex: "10",
-        }}
-      ></div>
 
       <Globe isPlaying={isPlaying} />
     </>
