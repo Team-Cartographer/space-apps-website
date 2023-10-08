@@ -1,90 +1,60 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import {
-  select,
-  geoPath,
-  geoMercator,
-  min,
-  max,
-  scaleLinear,
-  geoCentroid,
-} from "d3";
-import useResizeObserver from "./useResizeObserver";
-import data from "./GeoChart.world.geo.json";
+import React, { useState, useEffect, useRef } from "react";
+import Globe from "react-globe.gl";
+import Papa from "papaparse";
 
-function GeoChart({}) {
-  const svgRef = useRef();
-  const wrapperRef = useRef();
-  const dimensions = useResizeObserver(wrapperRef);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [K, setK] = useState(0);
+const World = () => {
+  const globeEl = useRef();
+
+  const [isReady, setIsReady] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    const svg = select(svgRef.current);
+    async function fetchData() {
+      const response = await fetch("./world_population.csv");
+      const reader = response.body.getReader();
+      const result = await reader.read();
+      const decoder = new TextDecoder("utf-8");
+      const csv = decoder.decode(result.value);
+      const results = Papa.parse(csv, { header: true });
+      setData(results.data);
+    }
 
-    const minLatitude = min(data.features, (feature) => {
-      const [x, y] = geoCentroid(feature);
-      return y - 60 + 10 * K;
-    });
-    const maxLatitude = max(data.features, (feature) => {
-      const [x, y] = geoCentroid(feature);
-      return y + 100 + -10 * K;
-    });
+    fetchData();
+  }, []);
 
-    const colorScale = scaleLinear()
-      .domain([minLatitude, 0, maxLatitude])
-      .range(["red", "green", "red"]);
-
-    const { width, height } =
-      dimensions || wrapperRef.current.getBoundingClientRect();
-
-    const projection = geoMercator()
-      .fitSize([width, height], selectedCountry || data)
-      .precision(100);
-
-    const pathGenerator = geoPath().projection(projection);
-
-    svg
-      .selectAll(".country")
-      .data(data.features)
-      .join("path")
-      .on("click", (event, feature) => {
-        setSelectedCountry(selectedCountry === feature ? null : feature);
-      })
-      .attr("class", "country")
-      .transition()
-      .attr("fill", (feature) => {
-        const [x, y] = geoCentroid(feature);
-        return colorScale(y);
-      })
-      .attr("d", (feature) => pathGenerator(feature));
-
-    svg
-      .selectAll(".label")
-      .data([selectedCountry])
-      .join("text")
-      .attr("class", "label")
-      .text((feature) => feature && feature.name)
-      .attr("x", 10)
-      .attr("y", 25);
-  }, [data, dimensions, selectedCountry, K]);
-
+  useEffect(() => {
+    globeEl.current.controls().autoRotate = true;
+  }, []);
   return (
-    <div>
-      <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
-        <svg ref={svgRef}></svg>
-      </div>
-      <button
-        onClick={() => {
-          if (K < 9) setK(K + 1);
-        }}
-      >
-        +
-      </button>
-      <p>K: {K}</p>
-    </div>
-  );
-}
+    <>
+      {!isReady && (
+        <div style={{ position: "absolute", width: "100%", height: "100%" }}>
+          <h1>Loading...</h1>
+        </div>
+      )}
 
-export default GeoChart;
+      <Globe
+        ref={globeEl}
+        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+        heatmapsData={[data]}
+        heatmapPointLat="lat"
+        heatmapPointLng="lng"
+        heatmapPointWeight="pop"
+        heatmapBandwidth={0.9}
+        heatmapColorSaturation={2.8}
+        enablePointerInteraction={false}
+        onZoom={(e) => {
+          console.log(e.altitude);
+        }}
+        onGlobeReady={() => {
+          globeEl.current.toGeoCoords(0, 0, 10);
+          setIsReady(true);
+        }}
+      />
+    </>
+  );
+};
+
+export default World;
