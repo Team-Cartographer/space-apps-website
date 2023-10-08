@@ -12,6 +12,10 @@ const Main = () => {
   const [isHover, setIsHover] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
 
+  const isBrowser = () => typeof window !== "undefined";
+
+  if (!isBrowser()) return null;
+
   return (
     <>
       <Image

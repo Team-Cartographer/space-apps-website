@@ -40,7 +40,6 @@ const World = ({ isPlaying }) => {
       //   }}
       //   enablePointerInteraction={false}
       onGlobeReady={() => {
-        globeEl.current.toGeoCoords(0, 0, 10);
         setIsReady(true);
       }}
     />
