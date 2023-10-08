@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import Globe from "react-globe.gl";
+import dynamic from "next/dynamic";
 import Papa from "papaparse";
+
+const Globe = dynamic(
+  () => import("react-globe.gl").then((mod) => mod.default),
+  {
+    ssr: false,
+  }
+);
 
 const World = ({ isPlaying }) => {
   const globeEl = useRef();
@@ -26,23 +33,25 @@ const World = ({ isPlaying }) => {
     globeEl.current.controls().autoRotate = isPlaying;
   }, [isPlaying]);
   return (
-    <Globe
-      ref={globeEl}
-      globeImageUrl={"../../earth_night.jpg"}
-      //   heatmapsData={[data]}
-      //   heatmapPointLat="lat"
-      //   heatmapPointLng="lng"
-      //   heatmapPointWeight="pop"
-      //   heatmapBandwidth={0.9}
-      //   heatmapColorSaturation={2.8}
-      //   onHeatmapRightClick={(e) => {
-      //     console.log("RC");
-      //   }}
-      //   enablePointerInteraction={false}
-      onGlobeReady={() => {
-        setIsReady(true);
-      }}
-    />
+    <>
+      <Globe
+        ref={globeEl}
+        globeImageUrl={"../../earth_night.jpg"}
+        //   heatmapsData={[data]}
+        //   heatmapPointLat="lat"
+        //   heatmapPointLng="lng"
+        //   heatmapPointWeight="pop"
+        //   heatmapBandwidth={0.9}
+        //   heatmapColorSaturation={2.8}
+        //   onHeatmapRightClick={(e) => {
+        //     console.log("RC");
+        //   }}
+        //   enablePointerInteraction={false}
+        onGlobeReady={() => {
+          setIsReady(true);
+        }}
+      />
+    </>
   );
 };
 
