@@ -30,7 +30,7 @@ const World = ({ isPlaying, setAltitude }) => {
   useEffect(() => {
     if (globeEl.current) {
       globeEl.current.controls().autoRotate = isPlaying;
-      globeEl.current.controls().autoRotateSpeed = 1;
+      globeEl.current.controls().autoRotateSpeed = 0.5;
     }
   }, [globeEl.current, isPlaying]);
 
