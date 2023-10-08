@@ -30,8 +30,8 @@ const World = ({ isPlaying }) => {
   }, []);
 
   useEffect(() => {
-    globeEl.current.controls().autoRotate = isPlaying;
-  }, [isPlaying]);
+    if (globeEl.current) globeEl.current.controls().autoRotate = isPlaying;
+  }, [globeEl, isPlaying]);
   return (
     <>
       <Globe
