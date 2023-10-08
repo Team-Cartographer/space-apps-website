@@ -1,60 +1,53 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import Globe from "react-globe.gl";
-import Papa from "papaparse";
+import { useState } from "react";
 
-const World = () => {
-  const globeEl = useRef();
+import Globe from "../components/Globe";
+import Image from "next/image";
 
-  const [isReady, setIsReady] = useState(false);
-  const [data, setData] = useState([]);
+import PauseSVG from "../../public/pause.svg";
+import PlaySVG from "../../public/play.svg";
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("./world_population.csv");
-      const reader = response.body.getReader();
-      const result = await reader.read();
-      const decoder = new TextDecoder("utf-8");
-      const csv = decoder.decode(result.value);
-      const results = Papa.parse(csv, { header: true });
-      setData(results.data);
-    }
+const Main = () => {
+  const [isHover, setIsHover] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    globeEl.current.controls().autoRotate = true;
-  }, []);
   return (
     <>
-      {!isReady && (
-        <div style={{ position: "absolute", width: "100%", height: "100%" }}>
-          <h1>Loading...</h1>
-        </div>
-      )}
-
-      <Globe
-        ref={globeEl}
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-        heatmapsData={[data]}
-        heatmapPointLat="lat"
-        heatmapPointLng="lng"
-        heatmapPointWeight="pop"
-        heatmapBandwidth={0.9}
-        heatmapColorSaturation={2.8}
-        enablePointerInteraction={false}
-        onZoom={(e) => {
-          console.log(e.altitude);
+      <Image
+        src={isPlaying ? PauseSVG : PlaySVG}
+        alt="Picture of the author"
+        width={64}
+        height={64}
+        onMouseEnter={() => {
+          setIsHover(true);
         }}
-        onGlobeReady={() => {
-          globeEl.current.toGeoCoords(0, 0, 10);
-          setIsReady(true);
+        onMouseLeave={() => {
+          setIsHover(false);
+        }}
+        onClick={() => {
+          setIsPlaying(!isPlaying);
+        }}
+        style={{
+          zIndex: "10",
+          color: "white",
+          position: "absolute",
+          cursor: isHover ? "pointer" : "default",
+          marginLeft: "10px",
+          marginTop: "10px",
         }}
       />
+      <div
+        style={{
+          position: "absolute",
+          color: "white",
+          zIndex: "10",
+        }}
+      ></div>
+
+      <Globe isPlaying={isPlaying} />
     </>
   );
 };
 
-export default World;
+export default Main;
