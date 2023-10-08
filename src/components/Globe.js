@@ -28,7 +28,8 @@ const World = ({ isPlaying }) => {
   return (
     <Globe
       ref={globeEl}
-      globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+      //   globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+      globeImageUrl={"../../earth_night.jpg"}
       //   heatmapsData={[data]}
       //   heatmapPointLat="lat"
       //   heatmapPointLng="lng"
