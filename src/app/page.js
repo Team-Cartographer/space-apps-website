@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 
-import Globe from "../components/Globe";
+import dynamic from "next/dynamic";
+const Globe = dynamic(
+  () => import("../components/Globe").then((mod) => mod.default),
+  {
+    ssr: false,
+  }
+);
 import Image from "next/image";
 
 import PauseSVG from "../../public/pause.svg";
