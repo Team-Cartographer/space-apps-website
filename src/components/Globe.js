@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import Globe from "react-globe.gl";
 import * as d3 from "d3";
 
-const World = ({ isPlaying }) => {
+const World = ({ isPlaying, setAltitude }) => {
   const globeEl = useRef();
 
   const [countries, setCountries] = useState({ features: [] });
@@ -54,6 +54,9 @@ const World = ({ isPlaying }) => {
       polygonsTransitionDuration={300}
       onGlobeReady={() => {
         setIsReady(true);
+      }}
+      onZoom={(e) => {
+        setAltitude(e.altitude);
       }}
     />
   );
