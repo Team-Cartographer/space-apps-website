@@ -27,6 +27,13 @@ const World = ({ isPlaying }) => {
   );
   colorScale.domain([0, maxVal]);
 
+  useEffect(() => {
+    if (globeEl.current) {
+      globeEl.current.controls().autoRotate = isPlaying;
+      globeEl.current.controls().autoRotateSpeed = 1;
+    }
+  }, [globeEl.current, isPlaying]);
+
   return (
     <Globe
       ref={globeEl}
