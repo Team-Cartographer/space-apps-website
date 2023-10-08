@@ -1,26 +1,40 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { select, geoPath, geoMercator, min, max, scaleLinear } from "d3";
+import {
+  select,
+  geoPath,
+  geoMercator,
+  min,
+  max,
+  scaleLinear,
+  geoCentroid,
+} from "d3";
 import useResizeObserver from "./useResizeObserver";
 import data from "./GeoChart.world.geo.json";
-
-const property = "pop_est";
 
 function GeoChart({}) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [K, setK] = useState(0);
 
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    const minProp = min(data.features, (feature) => feature["kp"]);
-    const maxProp = max(data.features, (feature) => feature["kp"]);
+    const minLatitude = min(data.features, (feature) => {
+      const [x, y] = geoCentroid(feature);
+      return y - 60 + 10 * K;
+    });
+    const maxLatitude = max(data.features, (feature) => {
+      const [x, y] = geoCentroid(feature);
+      return y + 100 + -10 * K;
+    });
+
     const colorScale = scaleLinear()
-      .domain([minProp, maxProp])
-      .range(["green", "red"]);
+      .domain([minLatitude, 0, maxLatitude])
+      .range(["red", "green", "red"]);
 
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect();
@@ -40,7 +54,10 @@ function GeoChart({}) {
       })
       .attr("class", "country")
       .transition()
-      .attr("fill", (feature) => colorScale(feature["kp"]))
+      .attr("fill", (feature) => {
+        const [x, y] = geoCentroid(feature);
+        return colorScale(y);
+      })
       .attr("d", (feature) => pathGenerator(feature));
 
     svg
@@ -51,11 +68,21 @@ function GeoChart({}) {
       .text((feature) => feature && feature.name)
       .attr("x", 10)
       .attr("y", 25);
-  }, [data, dimensions, property, selectedCountry]);
+  }, [data, dimensions, selectedCountry, K]);
 
   return (
-    <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
-      <svg ref={svgRef}></svg>
+    <div>
+      <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
+        <svg ref={svgRef}></svg>
+      </div>
+      <button
+        onClick={() => {
+          if (K < 9) setK(K + 1);
+        }}
+      >
+        +
+      </button>
+      <p>K: {K}</p>
     </div>
   );
 }
