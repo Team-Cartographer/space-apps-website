@@ -28,7 +28,6 @@ const World = ({ isPlaying }) => {
   return (
     <Globe
       ref={globeEl}
-      //   globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
       globeImageUrl={"../../earth_night.jpg"}
       //   heatmapsData={[data]}
       //   heatmapPointLat="lat"
@@ -41,7 +40,6 @@ const World = ({ isPlaying }) => {
       //   }}
       //   enablePointerInteraction={false}
       onGlobeReady={() => {
-        globeEl.current.toGeoCoords(0, 0, 10);
         setIsReady(true);
       }}
     />
