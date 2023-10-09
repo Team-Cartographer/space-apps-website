@@ -14,8 +14,14 @@ import PauseButton from "@/components/PauseButton";
 import MoreInfoLink from "@/components/MoreInfoLink";
 import LoadingScreen from "@/components/LoadingScreen";
 import GithubButton from "@/components/GithubButton";
+import ChooseDateInterval from "@/components/ChooseDateInterval";
+
+import { useSearchParams } from "next/navigation";
 
 const Main = () => {
+  const searchParams = useSearchParams();
+  const timestamp = searchParams.get("timestamp");
+
   const [isHover, setIsHover] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isReady, setIsReady] = useState(false);
@@ -33,7 +39,7 @@ const Main = () => {
             setIsPlaying={setIsPlaying}
             setIsHover={setIsHover}
           />
-
+          <ChooseDateInterval />
           <MoreInfoLink />
           <GithubButton />
         </>
@@ -43,6 +49,7 @@ const Main = () => {
         isPlaying={isPlaying}
         setAltitude={setAltitude}
         setIsReady={setIsReady}
+        timestamp={timestamp}
       />
     </>
   );
