@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import dynamic from "next/dynamic";
 const Globe = dynamic(
-  () => import("@/components/Globe").then((mod) => mod.default),
+  () => import("@/components/Globe.jsx").then((mod) => mod.default),
   {
     ssr: false,
   }

@@ -58,7 +58,7 @@ const World = ({ isPlaying, setAltitude, setIsReady }) => {
       polygonSideColor={() => "rgba(0, 100, 0, 0.15)"}
       polygonStrokeColor={() => "#111"}
       polygonLabel={({ properties: d }) => `
-        <b>${d.ADMIN} (${d.ISO_A2})</b> <br />
+        <b>${d.ADMIN}</b> <br />
         K: <i>${d.GDP_MD_EST}</i><br/>
       `}
       onPolygonHover={setHoverD}
