@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import ChooseFromList from "./ChooseFromList";
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -82,59 +83,51 @@ const Date = () => {
   return (
     <div>
       {year == null && (
-        <>
-          <h1>Choose year</h1>
-          {availableYears.map((year) => (
-            <>
-              <button onClick={() => setYear(year)}>{year}</button>
-              <br />
-            </>
-          ))}
-        </>
+        <ChooseFromList
+          title="Choose Year"
+          data={availableYears}
+          onClick={(d) => {
+            setYear(d);
+          }}
+        />
       )}
 
       {year != null && month == null && (
         <>
-          <h1>Choose month</h1>
-          {availableMonths.map((month) => (
-            <>
-              <button onClick={() => setMonth(month)}>{month}</button>
-              <br />
-            </>
-          ))}
+          <ChooseFromList
+            title="Choose Month"
+            data={availableMonths}
+            onClick={(d) => {
+              setMonth(d);
+            }}
+          />
         </>
       )}
 
       {year != null && month != null && day == null && (
         <>
-          <h1>Choose day</h1>
-          {availableDays.map((day) => (
-            <>
-              <button onClick={() => setDay(day)}>{day}</button>
-              <br />
-            </>
-          ))}
+          <ChooseFromList
+            title="Choose Day"
+            data={availableDays}
+            onClick={(d) => {
+              setDay(d);
+            }}
+          />
         </>
       )}
 
       {year != null && month != null && day != null && (
         <>
-          <h1>Choose hour</h1>
-          {availableHours.map((hour) => (
-            <>
-              <button
-                onClick={() => {
-                  const date = new window.Date(year, month, day, hour * 3);
+          <ChooseFromList
+            title="Choose Hour"
+            data={availableHours}
+            onClick={(hour) => {
+              const date = new window.Date(year, month, day, hour);
 
-                  const timestamp = formatDate(date);
-                  window.location.href = `/?timestamp=${timestamp}`;
-                }}
-              >
-                {hour * 3}
-              </button>
-              <br />
-            </>
-          ))}
+              const timestamp = formatDate(date);
+              window.location.href = `/?timestamp=${timestamp}`;
+            }}
+          />
         </>
       )}
     </div>
