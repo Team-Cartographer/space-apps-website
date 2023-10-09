@@ -144,9 +144,7 @@ const GlobeView = ({ isPlaying, setAltitude, setIsReady, timestamp }) => {
       }
       polygonSideColor={() => "rgba(0, 100, 0, 0.15)"}
       polygonStrokeColor={() => "#111"}
-      polygonLabel={({ properties: d }) =>
-        `<b>${d.ADMIN} ${getCountryColor(d.CONTINENT)}</b>`
-      }
+      polygonLabel={({ properties: d }) => `<b>${d.ADMIN}</b>`}
       onPolygonHover={setHoverD}
       polygonsTransitionDuration={300}
       onGlobeReady={() => setIsReady(true)}
