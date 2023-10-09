@@ -33,10 +33,7 @@ const Main = () => {
             setIsHover={setIsHover}
           />
 
-          <BetterButton
-            text="How To Interpret the Data?"
-            href="/how-to-interpret"
-          />
+          <BetterButton />
 
           <a
             href="https://github.com/Team-Cartographer"

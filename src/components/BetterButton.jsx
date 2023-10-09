@@ -1,37 +1,11 @@
-"use client";
-
-import { useState } from "react";
-
-const BetterButton = ({ text, href }) => {
-  const [isHover, setIsHover] = useState(false);
-
+const BetterButton = () => {
   return (
-    <text
-      onMouseEnter={() => {
-        setIsHover(true);
-      }}
-      onMouseLeave={() => {
-        setIsHover(false);
-      }}
-      onClick={() => {
-        window.open(href);
-      }}
-      style={{
-        zIndex: "11",
-        textDecorationLine: isHover ? "underline" : "none",
-        textUnderlineOffset: "5px",
-        color: "white",
-        position: "absolute",
-        cursor: isHover ? "pointer" : "default",
-        right: "0px",
-        marginRight: "30px",
-        marginTop: "30px",
-        color: "#5a5757",
-        fontSize: "24px",
-      }}
+    <a
+      href="/about-the-project"
+      className="absolute z-10 text-[#5a5757] right-0 hover:cursor-pointer mr-8 mt-8 text-2xl"
     >
-      {text}
-    </text>
+      About the Project
+    </a>
   );
 };
 
