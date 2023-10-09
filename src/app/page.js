@@ -11,9 +11,8 @@ const Globe = dynamic(
 );
 
 import PauseButton from "@/components/PauseButton";
-import MoreInfoLink from "@/components/MoreInfoLink";
 import LoadingScreen from "@/components/LoadingScreen";
-import GithubButton from "@/components/GithubButton";
+import BottomNav from "@/components/BottomNav";
 import ChooseDateInterval from "@/components/ChooseDateInterval";
 
 import { useSearchParams } from "next/navigation";
@@ -40,8 +39,7 @@ const Main = () => {
             setIsHover={setIsHover}
           />
           <ChooseDateInterval />
-          <MoreInfoLink />
-          <GithubButton />
+          <BottomNav />
         </>
       )}
 
