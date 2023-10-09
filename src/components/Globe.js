@@ -79,7 +79,7 @@ const World = ({ isPlaying, setAltitude, setIsReady }) => {
       customThreeObjectUpdate={(obj, d) => {
         Object.assign(
           obj.position,
-          globeEl.current.getCoords(d.lat, d.lng, d.alt)
+          globeEl.current?.getCoords(d.lat, d.lng, d.alt)
         );
       }}
     />
