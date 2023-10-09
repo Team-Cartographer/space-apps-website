@@ -37,6 +37,14 @@ const Main = () => {
             text="How To Interpret the Data?"
             href="/how-to-interpret"
           />
+
+          <a
+            href="https://github.com/Team-Cartographer"
+            target="_blank"
+            className="absolute w-full flex items-center justify-center z-40 bottom-0 mb-5 text-[#5a5757]  font-bold"
+          >
+            <text className="text-xl">Github</text>
+          </a>
         </>
       )}
 
