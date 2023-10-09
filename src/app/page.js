@@ -25,7 +25,7 @@ const Main = () => {
     <>
       <LoadingScreen isReady={isReady} />
 
-      {altitude > 1 && (
+      {altitude > 0.8 && (
         <>
           <PauseButton
             isPlaying={isPlaying}
@@ -35,7 +35,6 @@ const Main = () => {
           />
 
           <BetterButton />
-
           <GithubButton />
         </>
       )}
