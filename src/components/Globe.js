@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import Globe from "react-globe.gl";
 import * as d3 from "d3";
 
-const World = ({ isPlaying, setAltitude }) => {
+const World = ({ isPlaying, setAltitude, setIsReady }) => {
   const globeEl = useRef();
 
   const [countries, setCountries] = useState({ features: [] });
   const [hoverD, setHoverD] = useState();
-
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     fetch("./country.json")
