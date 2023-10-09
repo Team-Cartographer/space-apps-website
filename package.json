@@ -15,7 +15,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-globe": "^5.0.2",
-    "react-globe.gl": "^2.25.0"
+    "react-globe.gl": "^2.25.0",
+    "three": "^0.157.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",
