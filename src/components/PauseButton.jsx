@@ -13,6 +13,7 @@ const PauseButton = ({ isPlaying, setIsPlaying }) => {
   return (
     <Image
       src={isPlaying ? PauseSVG : PlaySVG}
+      alt="Pause/Play Button"
       width={64}
       height={64}
       onMouseEnter={() => {

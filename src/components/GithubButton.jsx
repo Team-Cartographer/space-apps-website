@@ -8,7 +8,7 @@ const GithubButton = () => {
         src={Logo}
         width={24}
         height={24}
-        alt="Picture of the author"
+        alt="Team Cartographer Logo"
         className="mr-3 rounded-lg"
       />
       <a
