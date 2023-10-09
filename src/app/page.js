@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import dynamic from "next/dynamic";
 const Globe = dynamic(
@@ -19,7 +19,7 @@ import { useSearchParams } from "next/navigation";
 
 const Main = () => {
   const searchParams = useSearchParams();
-  const timestamp = searchParams.get("timestamp");
+  const timestamp = searchParams.get("timestamp") || "2021-11-04-21";
 
   const [isHover, setIsHover] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -38,7 +38,8 @@ const Main = () => {
             setIsPlaying={setIsPlaying}
             setIsHover={setIsHover}
           />
-          <ChooseDateInterval />
+
+          <ChooseDateInterval timestamp={timestamp} />
           <BottomNav />
         </>
       )}

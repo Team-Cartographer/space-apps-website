@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import Globe from "react-globe.gl";
-import * as d3 from "d3";
 
 const SOUTH_AMERICA = {
   0: "#69B34C",
