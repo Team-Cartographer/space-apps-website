@@ -1,4 +1,4 @@
-const BetterButton = () => {
+const MoreInfoLink = () => {
   return (
     <a
       href="https://docs.google.com/presentation/d/e/2PACX-1vThHnNV4OxnPd3OjOHvlWN_4U71MY5mHgLs6kkxX7UrffQfXY2gErtkajTe2V5pdZ01GW7Y1Zn0DGYM/pub?start=false&loop=false&delayms=30000"
@@ -10,4 +10,4 @@ const BetterButton = () => {
   );
 };
 
-export default BetterButton;
+export default MoreInfoLink;

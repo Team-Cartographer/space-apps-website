@@ -14,7 +14,7 @@ const randomData = [
   },
 ];
 
-const World = ({ isPlaying, setAltitude, setIsReady }) => {
+const GlobeView = ({ isPlaying, setAltitude, setIsReady }) => {
   const globeEl = useRef();
 
   const [countries, setCountries] = useState({ features: [] });
@@ -86,4 +86,4 @@ const World = ({ isPlaying, setAltitude, setIsReady }) => {
   );
 };
 
-export default World;
+export default GlobeView;

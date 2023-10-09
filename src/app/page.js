@@ -11,7 +11,7 @@ const Globe = dynamic(
 );
 
 import PauseButton from "@/components/PauseButton";
-import BetterButton from "@/components/BetterButton";
+import MoreInfoLink from "@/components/MoreInfoLink";
 import LoadingScreen from "@/components/LoadingScreen";
 import GithubButton from "@/components/GithubButton";
 
@@ -34,7 +34,7 @@ const Main = () => {
             setIsHover={setIsHover}
           />
 
-          <BetterButton />
+          <MoreInfoLink />
           <GithubButton />
         </>
       )}
