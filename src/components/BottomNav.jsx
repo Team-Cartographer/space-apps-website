@@ -13,7 +13,7 @@ const BottomNav = () => {
       />
       <a
         className="text-[#5a5757] font-bold mr-5"
-        href="https://github.com/Team-Cartographer"
+        href="https://github.com/Turfader/Team-Cartographer-Space-Apps-Challenge-2023"
         target="_blank"
       >
         <text className="text-xl">Github</text>
